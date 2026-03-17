@@ -54,12 +54,12 @@ EOT
 
 cdi () {
     echo "cd to iCloud folder"
-    cd "/Users/akio/Library/Mobile Documents/com~apple~CloudDocs"
+    cd "$HOME/Library/Mobile Documents/com~apple~CloudDocs"
 }
 
 cdo () {
-    echo "cd to Obisidian folder"
-    cd "/Users/akio/Library/Mobile Documents/iCloud~md~obsidian/Documents/Obisdian/"
+    echo "cd to Obsidian folder"
+    cd "$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/Obisdian/"
 }
 
 
