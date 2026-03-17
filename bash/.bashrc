@@ -1,7 +1,7 @@
 
 # Custom .bashrc file
 # Compatible with macOS and Linux
-# Edited by bowang168 on 2025-Aug
+# Edited by Akio on 2025-08
 
 ## For MacOS 
 ############################################################
@@ -10,7 +10,8 @@ if [[ "$(uname)" == 'Darwin' ]]; then
     # Source macOS-specific bash configurations if available
 
     #alias t='open -a /Applications/TextEdit.app -n '	
-
+    alias cat="bat --theme auto:system --theme-dark default --theme-light GitHub"
+    alias geany="env LANG=zh_CN.UTF-8 LANGUAGE=zh_CN LC_MESSAGES=zh_CN.UTF-8 /Applications/Geany.app/Contents/MacOS/geany "
     # Cleanup .DS_Store files recursively
     alias dstore-clean='find . -type f -name .DS_Store -print0 | xargs -0 rm'
 
@@ -51,12 +52,23 @@ EOT
     cd "$currFolderPath"
 }
 
+cdi () {
+    echo "cd to iCloud folder"
+    cd "/Users/akio/Library/Mobile Documents/com~apple~CloudDocs"
+}
+
+cdo () {
+    echo "cd to Obisidian folder"
+    cd "/Users/akio/Library/Mobile Documents/iCloud~md~obsidian/Documents/Obisdian/"
+}
+
+
 ## ARCHIVE EXTRACTOR
 ############################################################
 # usage: extract <file>
 extract ()
 {
-    if [ -f $1 ] ; then
+    if [ -f "$1" ] ; then
         case $1 in
             *.tar.bz2)   tar xjf $1   ;;
             *.tar.gz)    tar xzf $1   ;;
@@ -164,20 +176,28 @@ alias .5="cd ../../../../.."
 # Improved directory listing with cross-platform compatibility
 if [ "$OS_TYPE" = "Darwin" ]; then
     # macOS: Define 'ls' and 'tree' aliases with macOS-compatible options
-    alias ll='ls -lhAF'   # List almost all files, including hidden
+    #alias ll='ls -lhAF'   # List almost all files, including hidden
+    alias ll='ls -lhF'   # List almost all files
     alias la='ls -lha'    # List all files
     alias lc='ls -lhaC'   # List all files in columns
     alias lr='ls -lhAR'   # Recursive ls
     alias lf='ls -ld */'  # List only directories
     
     # Tree command replacement for macOS (using 'find' as a fallback if 'tree' is not installed)
-    alias l2='find . -maxdepth 2 -print | sort'
-    alias l3='find . -maxdepth 3 -print | sort'
-    alias l4='find . -maxdepth 4 -print | sort'
+    #    alias l2='find . -maxdepth 2 -print | sort'
+    #    alias l3='find . -maxdepth 3 -print | sort'
+    #    alias l4='find . -maxdepth 4 -print | sort'
+    
+    # Tree view aliases
+    alias l2='tree -C . -L 2'
+    alias l3='tree -C . -L 3'
+    alias l4='tree -C . -L 4'
 
     # Remove files interactively
     alias rm='rm -iv'  
 else
+# Oracle Linux #
+# ##############
     # Linux: Use GNU 'ls' and 'tree' with full options
     cd() {
         builtin cd "$@" && ls -lhA --group-directories-first
@@ -197,6 +217,7 @@ else
     
     alias rm='rm -iv --preserve-root'              # Remove files interactively, with root protection
     alias hd='od -Ax -tx1z -v'                     # Hex dump of files
+    alias geany='LANG=zh_CN.UTF-8 LANGUAGE=zh_CN geany ' # Chinese UI
 fi
 
 # System information and management

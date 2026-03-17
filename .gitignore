@@ -1,0 +1,9 @@
+.DS_Store
+**/.DS_Store
+*.swp
+*.swo
+*~
+.bashrc_private
+.viminfo
+oh-my-zsh.tar.bzip2
+oh-my-zsh-small-size.tar.bzip2

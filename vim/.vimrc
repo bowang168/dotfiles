@@ -17,7 +17,7 @@ set wildmenu              " Enhanced command-line completion
 set showcmd               " Show incomplete commands
 set ruler                 " Show the cursor position
 set background=dark       " Optimize for dark themes
-colorscheme desert        " Set a color scheme (choose your favorite)
+silent! colorscheme desert " Set a color scheme (choose your favorite)
 
 " Search Settings
 set hlsearch              " Highlight all search results
