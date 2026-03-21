@@ -1,5 +1,8 @@
 # dotfiles
 
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-yellow?style=flat-square&logo=buy-me-a-coffee)](https://buymeacoffee.com/bowang168)
+[![Sponsor](https://img.shields.io/badge/GitHub%20Sponsors-sponsor-ea4aaa?style=flat-square&logo=github-sponsors)](https://github.com/sponsors/bowang168)
+
 Personal configuration files for Bash, Zsh, and Vim. Designed to work on both macOS and Oracle Linux.
 
 ## Structure
@@ -45,3 +48,8 @@ Create `~/.bashrc_private` for machine-specific settings (proxy servers, SSH hos
 ## License
 
 [MIT](LICENSE)
+
+## Support This Project
+
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-yellow?style=flat-square&logo=buy-me-a-coffee)](https://buymeacoffee.com/bowang168)
+[![Sponsor](https://img.shields.io/badge/GitHub%20Sponsors-sponsor-ea4aaa?style=flat-square&logo=github-sponsors)](https://github.com/sponsors/bowang168)
