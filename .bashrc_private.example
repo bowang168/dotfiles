@@ -1,0 +1,16 @@
+# Private environment variables — DO NOT commit to git
+# Copy this file to ~/.bashrc_private and fill in your real values
+# chmod 600 ~/.bashrc_private
+# Sourced by ~/.zshrc and ~/.bashrc
+
+# ================================
+# API Keys
+# ================================
+export QDRANT_API_KEY="your_qdrant_api_key_here"
+export QDRANT_CLOUD_URL="https://your-cluster.cloud.qdrant.io"
+export QDRANT_CLOUD_API_KEY="your_qdrant_cloud_api_key_here"
+export DEEPSEEK_API_KEY="your_deepseek_api_key_here"
+
+# TradeMe API
+export TRADEME_CONSUMER_KEY="your_trademe_consumer_key_here"
+export TRADEME_CONSUMER_SECRET="your_trademe_consumer_secret_here"

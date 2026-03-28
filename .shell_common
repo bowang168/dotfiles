@@ -1,0 +1,169 @@
+# Shared shell configuration — sourced by both .bashrc and .zshrc
+# Compatible with bash and zsh on macOS and Linux
+
+OS_TYPE="$(uname)"
+
+# ================================
+# macOS-specific
+# ================================
+if [[ "$OS_TYPE" == "Darwin" ]]; then
+    alias cat="bat --theme auto:system --theme-dark default --theme-light GitHub"
+    alias geany="env LANG=zh_CN.UTF-8 LANGUAGE=zh_CN LC_MESSAGES=zh_CN.UTF-8 /Applications/Geany.app/Contents/MacOS/geany"
+    alias dstore-clean='find . -type f -name .DS_Store -print0 | xargs -0 rm'
+    alias emptytrash='sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl'
+    alias showdotfiles='defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder'
+    alias hidedotfiles='defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder'
+    alias showdeskicons='defaults write com.apple.finder CreateDesktop -bool true && killall Finder'
+    alias hidedeskicons='defaults write com.apple.finder CreateDesktop -bool false && killall Finder'
+    alias screensaverDesktop='/System/Library/Frameworks/ScreenSaver.framework/Resources/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine -background'
+    alias vpnui=/opt/cisco/secureclient/bin/vpnui
+
+    ql() { qlmanage -p "$*" >& /dev/null; }
+
+    alias ll='ls -lhF'
+    alias la='ls -lha'
+    alias lc='ls -lhaC'
+    alias lr='ls -lhAR'
+    alias lf='ls -ld */'
+    alias rm='rm -v'
+else
+    # Linux (Oracle Linux / ISDE / CMOS)
+    cd() { builtin cd "$@" && ls -lhA --group-directories-first; }
+    alias l.='ls -d .* --group-directories-first'
+    alias ll='ls -lhA --group-directories-first'
+    alias la='ls -lha --group-directories-first'
+    alias lc='ls -lhAC --group-directories-first'
+    alias lr='ls -lhAR --group-directories-first'
+    alias lf='ls -ld */ --group-directories-first'
+    alias rm='rm -iv --preserve-root'
+    alias hd='od -Ax -tx1z -v'
+    alias geany='LANG=zh_CN.UTF-8 LANGUAGE=zh_CN geany'
+fi
+
+# Tree view
+alias l2='tree -C . -L 2'
+alias l3='tree -C . -L 3'
+alias l4='tree -C . -L 4'
+
+# ================================
+# Navigation
+# ================================
+alias .2="cd ../../"
+alias .3="cd ../../../"
+alias .4="cd ../../../../"
+alias .5="cd ../../../../.."
+
+cdf() {
+    local currFolderPath
+    currFolderPath=$( /usr/bin/osascript <<EOT
+        tell application "Finder"
+            try
+                set currFolder to (folder of the front window as alias)
+            on error
+                set currFolder to (path to desktop folder as alias)
+            end try
+            POSIX path of currFolder
+        end tell
+EOT
+    )
+    echo "cd to \"$currFolderPath\""
+    cd "$currFolderPath"
+}
+
+cdi() { cd "$HOME/Library/Mobile Documents/com~apple~CloudDocs" && ls; }
+cdo() { cd "$HOME/d/obsi" && ls; }
+cdd() { cd "$HOME/d/" && ls; }
+
+# ================================
+# Editor — prefer nvim > vim > vi
+# ================================
+if command -v nvim &>/dev/null; then
+    export EDITOR='nvim'
+    export VISUAL='nvim'
+    alias vim='nvim'
+    alias vi='nvim'
+elif command -v vim &>/dev/null; then
+    export EDITOR='vim'
+    export VISUAL='vim'
+    alias vi='vim'
+fi
+
+# ================================
+# File operations
+# ================================
+alias mv='mv -iv'
+alias cp='cp -iv'
+alias mkdir='mkdir -pv'
+alias more=less
+alias dig="dig +noall +answer"
+alias fix_stty='stty sane'
+alias cal='cal -3'
+alias cman='LANG=zh_CN.UTF-8 man -S 2:3:1:4:5:6:7:8'
+alias diff='LC_ALL=C TZ=GMT0 diff -Naur'
+
+# Archive extractor
+extract() {
+    if [ -f "$1" ]; then
+        case "$1" in
+            *.tar.bz2)   tar xjf "$1"   ;;
+            *.tar.gz)    tar xzf "$1"   ;;
+            *.bz2)       bunzip2 "$1"   ;;
+            *.rar)       unrar x "$1"   ;;
+            *.gz)        gunzip "$1"    ;;
+            *.tar)       tar xf "$1"    ;;
+            *.tbz2)      tar xjf "$1"   ;;
+            *.tgz)       tar xzf "$1"   ;;
+            *.zip)       unzip "$1"     ;;
+            *.Z)         uncompress "$1";;
+            *.7z)        7z x "$1"      ;;
+            *)           echo "'$1' cannot be extracted" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+}
+
+# iTerm2 clickable file path
+fileurl() { echo "file://$(python3 -c "import urllib.parse; print(urllib.parse.quote('$(realpath "$1")'))")"; }
+
+# ================================
+# Proxy (requires proxy_servers array from .bashrc_private)
+# ================================
+proxyset() {
+    case "$1" in
+        us|au|cn)
+            export http_proxy="http://${proxy_servers[$1]}:80"
+            export https_proxy="http://${proxy_servers[$1]}:80"
+            export ftp_proxy="http://${proxy_servers[$1]}:80"
+            export RSYNC_PROXY="http://${proxy_servers[$1]}:80"
+            echo "Proxy set to $1"
+            ;;
+        off)
+            unset http_proxy https_proxy ftp_proxy RSYNC_PROXY
+            echo "Proxy settings cleared"
+            ;;
+        *)  echo "Usage: proxyset [us|au|cn|off]" ;;
+    esac
+}
+
+# ================================
+# Work: ISDE/CMOS
+# ================================
+
+# ISDE/CMOS file access
+cff() {
+    if command -v REDACTED_AGENT >/dev/null 2>&1; then
+        REDACTED_AGENT -x SR "$1" && cd /REDACTED_PATH/isde/SR/"$1"/
+    elif command -v REDACTED_CLIENT >/dev/null 2>&1; then
+        REDACTED_CLIENT access sr "$1" && cd /REDACTED_PATH/isde/sr/"$1"/
+    else
+        echo "Error: neither REDACTED_AGENT nor REDACTED_CLIENT found in PATH." >&2
+        return 1
+    fi
+}
+
+# ================================
+# Conditional PATH additions (work servers only)
+# ================================
+[[ -d "/REDACTED_PATH/bin" ]] && export PATH="$PATH:/REDACTED_PATH/bin"
+[[ -d "/REDACTED_PATH/isde_tools/DevWorkspace/REDACTED_TOOLS/Linux_tools/bin" ]] && export PATH="$PATH:/REDACTED_PATH/isde_tools/DevWorkspace/REDACTED_TOOLS/Linux_tools/bin"
