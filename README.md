@@ -14,11 +14,37 @@ dotfiles/
 ├── .bashrc_private.example  # Template for API keys and secrets
 ├── .shell_common       # Shared aliases and functions (bash + zsh)
 ├── .zshenv             # Zsh env vars for all processes (PATH only)
-├── .zshrc              # Zsh interactive (oh-my-zsh + sources .bashrc_private + .shell_common)
-└── nvim/
-    ├── init.lua        # Neovim config (lazy.nvim, catppuccin, fzf, treesitter)
-    └── lazy-lock.json  # Plugin version lock file
+├── .zshrc              # Zsh interactive (oh-my-zsh + catppuccin + plugins)
+├── bin/
+│   └── theme           # Dark/light theme switcher
+├── nvim/
+│   ├── init.lua        # Neovim config (lazy.nvim, catppuccin, fzf, treesitter)
+│   └── lazy-lock.json  # Plugin version lock file
+├── zsh/
+│   └── catppuccin/
+│       ├── mocha.zsh   # Dark theme colors for zsh-syntax-highlighting
+│       └── latte.zsh   # Light theme colors for zsh-syntax-highlighting
+└── gnome-terminal-profiles.dconf  # GNOME Terminal profiles export
 ```
+
+## Theme switching
+
+The `theme` command switches between **Catppuccin Mocha** (dark) and **Catppuccin Latte** (light) across your entire environment:
+
+```bash
+theme dark      # Switch to dark mode
+theme light     # Switch to light mode
+theme toggle    # Toggle between dark and light
+theme           # Same as toggle
+```
+
+This changes:
+- **GNOME Terminal** profile (background, foreground, ANSI palette)
+- **GTK theme** (Adwaita-dark / Adwaita)
+- **Neovim** colorscheme (reads `~/.theme_mode` on startup)
+- **Zsh syntax highlighting** colors (loaded via `~/.zshrc`)
+
+After switching, run `exec zsh` to reload shell colors in the current session. New terminal windows will use the new theme automatically.
 
 ## Installation
 
@@ -32,6 +58,18 @@ ln -sf ~/dotfiles/.shell_common ~/.shell_common
 ln -sf ~/dotfiles/.zshenv ~/.zshenv
 ln -sf ~/dotfiles/.zshrc ~/.zshrc
 
+# Theme switcher
+mkdir -p ~/bin
+ln -sf ~/dotfiles/bin/theme ~/bin/theme
+
+# Catppuccin zsh colors
+mkdir -p ~/.zsh/catppuccin
+ln -sf ~/dotfiles/zsh/catppuccin/mocha.zsh ~/.zsh/catppuccin/mocha.zsh
+ln -sf ~/dotfiles/zsh/catppuccin/latte.zsh ~/.zsh/catppuccin/latte.zsh
+
+# Initialize theme (dark by default)
+echo "dark" > ~/.theme_mode
+
 # Secrets (copy template, fill in real values)
 cp ~/dotfiles/.bashrc_private.example ~/.bashrc_private
 chmod 600 ~/.bashrc_private
@@ -40,6 +78,18 @@ chmod 600 ~/.bashrc_private
 mkdir -p ~/.config/nvim
 ln -sf ~/dotfiles/nvim/init.lua ~/.config/nvim/init.lua
 ln -sf ~/dotfiles/nvim/lazy-lock.json ~/.config/nvim/lazy-lock.json
+
+# GNOME Terminal profiles (Linux only)
+dconf load /org/gnome/terminal/legacy/profiles:/ < ~/dotfiles/gnome-terminal-profiles.dconf
+```
+
+## Zsh plugins
+
+Install these into oh-my-zsh custom plugins directory:
+
+```bash
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 ```
 
 ## Dependencies
@@ -48,8 +98,10 @@ ln -sf ~/dotfiles/nvim/lazy-lock.json ~/.config/nvim/lazy-lock.json
 |------|---------|----------|
 | [neovim](https://neovim.io/) | Text editor | Yes |
 | [fzf](https://github.com/junegunn/fzf) | Fuzzy finder | Yes |
-| [bat](https://github.com/sharkdop/bat) | `cat` replacement with syntax highlighting | Optional (macOS) |
 | [oh-my-zsh](https://ohmyz.sh/) | Zsh framework for themes and plugins | Yes (for zsh) |
+| [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) | Command syntax coloring | Yes |
+| [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) | Fish-like autosuggestions | Yes |
+| [bat](https://github.com/sharkdop/bat) | `cat` replacement with syntax highlighting | Optional (macOS) |
 | [tree](https://mama.indstate.edu/users/ice/tree/) | Directory listing | Optional |
 
 ## License
