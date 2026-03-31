@@ -127,26 +127,6 @@ extract() {
 fileurl() { echo "file://$(python3 -c "import urllib.parse; print(urllib.parse.quote('$(realpath "$1")'))")"; }
 
 # ================================
-# Proxy (requires proxy_servers array from .bashrc_private)
-# ================================
-proxyset() {
-    case "$1" in
-        us|au|cn)
-            export http_proxy="http://${proxy_servers[$1]}:80"
-            export https_proxy="http://${proxy_servers[$1]}:80"
-            export ftp_proxy="http://${proxy_servers[$1]}:80"
-            export RSYNC_PROXY="http://${proxy_servers[$1]}:80"
-            echo "Proxy set to $1"
-            ;;
-        off)
-            unset http_proxy https_proxy ftp_proxy RSYNC_PROXY
-            echo "Proxy settings cleared"
-            ;;
-        *)  echo "Usage: proxyset [us|au|cn|off]" ;;
-    esac
-}
-
-# ================================
 # Work: ISDE/CMOS
 # ================================
 
