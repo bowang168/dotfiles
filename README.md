@@ -16,7 +16,11 @@ dotfiles/
 ├── .zshenv             # Zsh env vars for all processes (PATH only)
 ├── .zshrc              # Zsh interactive (oh-my-zsh + catppuccin + plugins)
 ├── bin/
-│   └── theme           # Dark/light theme switcher
+│   ├── theme           # Dark/light theme switcher
+│   └── toggle_app      # Toggle/focus/launch application windows
+├── docs/
+│   ├── ol9-shortcuts.md        # OL9 keyboard shortcuts & keyd config
+│   └── keyboard_shortcuts_ol9/ # Screenshot images
 ├── nvim/
 │   ├── init.lua        # Neovim config (lazy.nvim, catppuccin, fzf, treesitter)
 │   └── lazy-lock.json  # Plugin version lock file
@@ -46,6 +50,20 @@ This changes:
 
 After switching, run `exec zsh` to reload shell colors in the current session. New terminal windows will use the new theme automatically.
 
+## toggle_app
+
+Toggle and focus a target application window. Launches it if not running; minimizes it if already focused.
+
+```bash
+toggle_app gnome-terminal   # Toggle terminal window
+toggle_app google-chrome    # Toggle Chrome window
+toggle_app                  # Defaults to gnome-terminal
+```
+
+Dependencies: `xdotool`, `wmctrl`
+
+See [docs/ol9-shortcuts.md](docs/ol9-shortcuts.md) for keyboard shortcut configuration with `keyd`.
+
 ## Installation
 
 ```bash
@@ -58,9 +76,10 @@ ln -sf ~/dotfiles/.shell_common ~/.shell_common
 ln -sf ~/dotfiles/.zshenv ~/.zshenv
 ln -sf ~/dotfiles/.zshrc ~/.zshrc
 
-# Theme switcher
-mkdir -p ~/bin
-ln -sf ~/dotfiles/bin/theme ~/bin/theme
+# Scripts (theme switcher + toggle_app)
+mkdir -p ~/.local/bin
+ln -sf ~/dotfiles/bin/theme ~/.local/bin/theme
+ln -sf ~/dotfiles/bin/toggle_app ~/.local/bin/toggle_app
 
 # Catppuccin zsh colors
 mkdir -p ~/.zsh/catppuccin
@@ -101,6 +120,8 @@ git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/cust
 | [oh-my-zsh](https://ohmyz.sh/) | Zsh framework for themes and plugins | Yes (for zsh) |
 | [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) | Command syntax coloring | Yes |
 | [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) | Fish-like autosuggestions | Yes |
+| [xdotool](https://github.com/jordansissel/xdotool) | Window manipulation (for toggle_app) | Yes (Linux) |
+| [wmctrl](https://sites.google.com/site/aborber/wmctrl) | Window manager control (for toggle_app) | Yes (Linux) |
 | [bat](https://github.com/sharkdop/bat) | `cat` replacement with syntax highlighting | Optional (macOS) |
 | [tree](https://mama.indstate.edu/users/ice/tree/) | Directory listing | Optional |
 
