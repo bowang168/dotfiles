@@ -78,11 +78,11 @@ require("lazy").setup({
     name = "catppuccin",
     priority = 1000,
     config = function()
-      -- Auto-detect macOS dark/light mode
-      local handle = io.popen("defaults read -g AppleInterfaceStyle 2>/dev/null")
-      local result = handle:read("*a")
-      handle:close()
-      local is_dark = result:match("Dark") ~= nil
+      -- Read theme from ~/.theme_mode (set by ~/bin/theme script)
+      local mode = "dark"
+      local f = io.open(os.getenv("HOME") .. "/.theme_mode", "r")
+      if f then mode = f:read("*l") or "dark"; f:close() end
+      local is_dark = mode ~= "light"
       vim.o.background = is_dark and "dark" or "light"
       vim.cmd.colorscheme(is_dark and "catppuccin-mocha" or "catppuccin-latte")
     end,
@@ -141,17 +141,8 @@ require("lazy").setup({
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = function()
-      -- Nvim 0.11+ uses vim.treesitter directly; ensure parsers are installed
-      local ensure = { "lua", "python", "bash", "json", "yaml", "markdown", "vim", "vimdoc" }
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "LazyDone",
-        once = true,
-        callback = function()
-          local installed = require("nvim-treesitter.install")
-          for _, lang in ipairs(ensure) do
-            pcall(function() installed.ensure_installed(lang) end)
-          end
-        end,
+      require("nvim-treesitter").setup({
+        ensure_install = { "lua", "python", "bash", "json", "yaml", "markdown", "vim", "vimdoc" },
       })
     end,
   },

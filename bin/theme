@@ -1,0 +1,42 @@
+#!/bin/bash
+# Switch between dark (catppuccin-mocha) and light (catppuccin-latte) theme
+# Usage: theme dark | theme light | theme toggle
+
+DARK_PROFILE="catppuccin-mocha"
+LIGHT_PROFILE="catppuccin-latte"
+STATE_FILE="$HOME/.theme_mode"
+
+current_mode() {
+    cat "$STATE_FILE" 2>/dev/null || echo "dark"
+}
+
+set_theme() {
+    local mode="$1"
+    if [[ "$mode" == "dark" ]]; then
+        dconf write /org/gnome/terminal/legacy/profiles:/default "'$DARK_PROFILE'"
+        gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark' 2>/dev/null
+        echo "dark" > "$STATE_FILE"
+        echo "Switched to dark (catppuccin-mocha). Run 'exec zsh' to reload shell colors."
+    elif [[ "$mode" == "light" ]]; then
+        dconf write /org/gnome/terminal/legacy/profiles:/default "'$LIGHT_PROFILE'"
+        gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita' 2>/dev/null
+        echo "light" > "$STATE_FILE"
+        echo "Switched to light (catppuccin-latte). Run 'exec zsh' to reload shell colors."
+    else
+        echo "Usage: theme [dark|light|toggle]"
+        return 1
+    fi
+}
+
+case "${1:-toggle}" in
+    dark)   set_theme dark ;;
+    light)  set_theme light ;;
+    toggle)
+        if [[ "$(current_mode)" == "dark" ]]; then
+            set_theme light
+        else
+            set_theme dark
+        fi
+        ;;
+    *)  echo "Usage: theme [dark|light|toggle]" ;;
+esac

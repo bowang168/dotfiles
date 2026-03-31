@@ -10,9 +10,18 @@ plugins=(
     z
     fzf
     colorize
+    zsh-syntax-highlighting
+    zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
+
+# Catppuccin colors for zsh (syntax highlighting + autosuggestions)
+if [[ "$(cat ~/.theme_mode 2>/dev/null)" == "light" ]]; then
+    source "$HOME/.zsh/catppuccin/latte.zsh"
+else
+    source "$HOME/.zsh/catppuccin/mocha.zsh"
+fi
 
 # ================================
 # Private env vars (API keys, secrets) — MUST be before .shell_common
