@@ -21,7 +21,8 @@ plugins=(
 source "$ZSH/oh-my-zsh.sh"
 
 # --- Catppuccin colors for zsh-syntax-highlighting ---
-if [[ "$(cat ~/.theme_mode 2>/dev/null)" == "light" ]]; then
+# Use command cat to bypass any bat alias
+if [[ "$(command cat ~/.theme_mode 2>/dev/null)" == "light" ]]; then
     source "$HOME/.zsh/catppuccin/latte.zsh"
 else
     source "$HOME/.zsh/catppuccin/mocha.zsh"
@@ -36,8 +37,9 @@ fi
 # --- zsh-only config ---
 PROJECT_PATHS=($HOME/Desktop/Projects ~/c)
 
-# --- Optional tool integrations ---
-[ -f "$HOME/.openclaw/completions/openclaw.zsh" ] && source "$HOME/.openclaw/completions/openclaw.zsh"
-
-export WHISPER_CPP_MODEL=/opt/homebrew/share/whisper-cpp/ggml-large-v3-turbo.bin
+# --- Optional tool integrations (macOS only) ---
+if [[ "$(uname)" == "Darwin" ]]; then
+    [ -f "$HOME/.openclaw/completions/openclaw.zsh" ] && source "$HOME/.openclaw/completions/openclaw.zsh"
+    export WHISPER_CPP_MODEL=/opt/homebrew/share/whisper-cpp/ggml-large-v3-turbo.bin
+fi
 export OLLAMA_ORIGINS="app://obsidian.md*"

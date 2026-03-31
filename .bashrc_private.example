@@ -13,31 +13,35 @@ export TRADEME_CONSUMER_KEY="your_trademe_consumer_key_here"
 export TRADEME_CONSUMER_SECRET="your_trademe_consumer_secret_here"
 
 # --- Corporate Proxy ---
+# Note: This function uses zsh-specific syntax (typeset -A, ${(kj:|:)}).
+# If sourcing from bash, either rewrite or skip this section.
 
-typeset -A _proxy_hosts=(
-    [us]="proxy.example.com"
-    [cn]="proxy.example.com"
-)
+if [[ -n "$ZSH_VERSION" ]]; then
+    typeset -A _proxy_hosts=(
+        [us]="proxy.example.com"
+        [cn]="proxy.example.com"
+    )
 
-_proxy_no_proxy="localhost,127.0.0.1,.example.com"
+    _proxy_no_proxy="localhost,127.0.0.1,.example.com"
 
-proxyset() {
-    local region="$1"
-    if [[ "$region" == "off" ]]; then
-        unset http_proxy HTTP_PROXY https_proxy HTTPS_PROXY \
-              ftp_proxy FTP_PROXY RSYNC_PROXY no_proxy NO_PROXY
-        echo "Proxy cleared"
-        return
-    fi
+    proxyset() {
+        local region="$1"
+        if [[ "$region" == "off" ]]; then
+            unset http_proxy HTTP_PROXY https_proxy HTTPS_PROXY \
+                  ftp_proxy FTP_PROXY RSYNC_PROXY no_proxy NO_PROXY
+            echo "Proxy cleared"
+            return
+        fi
 
-    local host="${_proxy_hosts[$region]}"
-    if [[ -z "$host" ]]; then
-        echo "Usage: proxyset [${(kj:|:)_proxy_hosts}|off]"
-        return 1
-    fi
+        local host="${_proxy_hosts[$region]}"
+        if [[ -z "$host" ]]; then
+            echo "Usage: proxyset [${(kj:|:)_proxy_hosts}|off]"
+            return 1
+        fi
 
-    local url="http://${host}:80"
-    export {http,https,ftp}_proxy="$url" {HTTP,HTTPS,FTP}_PROXY="$url" RSYNC_PROXY="$url"
-    export no_proxy="$_proxy_no_proxy" NO_PROXY="$_proxy_no_proxy"
-    echo "Proxy → $region ($host)"
-}
+        local url="http://${host}:80"
+        export {http,https,ftp}_proxy="$url" {HTTP,HTTPS,FTP}_PROXY="$url" RSYNC_PROXY="$url"
+        export no_proxy="$_proxy_no_proxy" NO_PROXY="$_proxy_no_proxy"
+        echo "Proxy → $region ($host)"
+    }
+fi
