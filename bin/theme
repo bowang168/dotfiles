@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Switch between dark (catppuccin-mocha) and light (catppuccin-latte) theme
 # Usage: theme dark | theme light | theme toggle
 

@@ -62,7 +62,7 @@ vim.opt.timeoutlen = 300
 -- Plugin Manager: lazy.nvim
 -- ===========================================
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system({
     "git", "clone", "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
@@ -142,7 +142,7 @@ require("lazy").setup({
     build = ":TSUpdate",
     config = function()
       require("nvim-treesitter").setup({
-        ensure_install = { "lua", "python", "bash", "json", "yaml", "markdown", "vim", "vimdoc" },
+        ensure_installed = { "lua", "python", "bash", "json", "yaml", "markdown", "vim", "vimdoc" },
       })
     end,
   },

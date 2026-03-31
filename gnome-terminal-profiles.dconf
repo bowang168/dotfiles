@@ -19,7 +19,7 @@ scrollbar-policy='never'
 use-custom-command=true
 use-system-font=false
 use-theme-colors=true
-visible-name='akio'
+visible-name='Default'
 
 [:catppuccin-latte]
 background-color='#EFF1F5'

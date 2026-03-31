@@ -1,7 +1,15 @@
+# Secrets
+.bashrc_private
+
+# macOS
 .DS_Store
 **/.DS_Store
+
+# Vim / Neovim
 *.swp
 *.swo
 *~
-.bashrc_private
 .viminfo
+
+# Editor state
+.claude/
