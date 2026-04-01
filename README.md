@@ -20,8 +20,7 @@ dotfiles/
 │   ├── theme               # Dark/light theme switcher (GNOME)
 │   └── toggle_app          # Toggle/focus/launch app windows (X11)
 ├── docs/
-│   ├── ol9-shortcuts.md
-│   └── keyboard_shortcuts_ol9/
+│   └── ol9-shortcuts.md    # OL9 keyboard shortcuts (keyd, GNOME, custom)
 ├── nvim/
 │   ├── init.lua            # Neovim config (lazy.nvim + catppuccin + fzf + treesitter)
 │   └── lazy-lock.json      # Plugin version lock

@@ -1,43 +1,73 @@
-# OL9 Keyboard Shortcuts
+# Oracle Linux 9 — Keyboard Shortcuts
 
-My keyboard shortcuts for Oracle Linux 9:
+## keyd (key remapping)
 
-![Photo 0](keyboard_shortcuts_ol9/0.png)
-![Photo 1](keyboard_shortcuts_ol9/1.png)
-![Photo 2](keyboard_shortcuts_ol9/2.png)
-![Photo 3](keyboard_shortcuts_ol9/3.png)
-![Photo 4](keyboard_shortcuts_ol9/4.png)
-![Photo 5](keyboard_shortcuts_ol9/5.png)
-![Photo 6](keyboard_shortcuts_ol9/6.png)
-![Photo 7](keyboard_shortcuts_ol9/7.png)
+[keyd](https://github.com/rvaiya/keyd) remaps CapsLock to **Escape** (tap) / **Super** (hold).
 
-## keyd config
+```ini
+# /etc/keyd/default.conf
+[ids]
+*
+
+[main]
+capslock = overload(meta, esc)
+```
+
+### Install keyd
 
 ```bash
 git clone https://github.com/rvaiya/keyd
 cd keyd
 make && sudo make install
-sudo mkdir -p /etc/keyd
-sudo systemctl enable keyd
-sudo systemctl start keyd
+sudo systemctl enable --now keyd
+```
 
-sudo .keyd/bin/keyd -m
-sudo vim /etc/keyd/default.conf
-  [ids]
+After editing `/etc/keyd/default.conf`, reload with `sudo keyd reload`.
 
-  *
+## GNOME Window Management
 
-  [main]
+| Shortcut | Action |
+|----------|--------|
+| `Super+f` | Toggle maximize |
+| `Super+r` | Unmaximize (restore) |
+| `Super+h` | Minimize |
+| `Super+w` | Close window |
+| `Super+d` | Show desktop |
+| `Super+e` | File manager |
+| `Super+Tab` | Switch applications |
+| `Super+,` / `Super+.` | Switch workspace left / right |
+| `Super+3` | Maximize horizontally |
+| `Super+4` | Maximize vertically |
+| `Ctrl+Space` | Switch input source |
+| `Ctrl+Alt+Delete` | Logout |
+| `Shift+Alt+Super+l` | Lock screen |
 
-  # Maps capslock to escape when pressed and control when held.
-  #capslock = overload(control, esc)
-  capslock = overload(meta, esc)
-  #capslock = overload(hyper, esc)
-  #space    = overload(leftmeta, space)
+## Custom Shortcuts (toggle_app + quick-open)
 
-  # Remaps the escape key to capslock
-  #esc = capslock
+| Shortcut | Command | Description |
+|----------|---------|-------------|
+| `Super+Return` | `toggle_app gnome-terminal` | Toggle terminal |
+| `Super+g` | `toggle_app google-chrome` | Toggle Chrome |
+| `Super+Shift+f` | `toggle_app firefox` | Toggle Firefox |
+| `Super+b` | `toggle_app gedit` | Toggle gedit |
+| `Super+j` | `quick-open` | Oracle Quick Open |
+| `Super+u` | `quick-open --no-open` | quick-open without opening |
+| `Super+y` | `quick-open --one-value` | quick-open single value |
+| `Super+o` | `quick-open --raw-capture` | quick-open raw capture |
 
+## Volume
 
-sudo ./keyd/bin/keyd reload
+| Shortcut | Action |
+|----------|--------|
+| `Super+[` | Volume up |
+| `Super+/` | Volume down |
+
+## Restore shortcuts
+
+```bash
+# Custom shortcuts are stored in dconf. To export:
+dconf dump /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/ > custom-shortcuts.dconf
+
+# To restore:
+dconf load /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/ < custom-shortcuts.dconf
 ```
