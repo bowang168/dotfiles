@@ -38,6 +38,7 @@ echo "Shell config:"
 link "$DOTFILES_DIR/.bash_profile"  "$HOME/.bash_profile"
 link "$DOTFILES_DIR/.bashrc"        "$HOME/.bashrc"
 link "$DOTFILES_DIR/.shell_common"  "$HOME/.shell_common"
+link "$DOTFILES_DIR/.zprofile"      "$HOME/.zprofile"
 link "$DOTFILES_DIR/.zshenv"        "$HOME/.zshenv"
 link "$DOTFILES_DIR/.zshrc"         "$HOME/.zshrc"
 

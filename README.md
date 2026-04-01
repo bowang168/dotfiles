@@ -41,6 +41,7 @@ dotfiles/
 ├── .bashrc                 # Bash interactive (sources .bashrc_private + .shell_common)
 ├── .bashrc_private.example # Template for API keys and secrets
 ├── .shell_common           # Shared aliases and functions (bash + zsh, cross-platform)
+├── .zprofile               # Zsh login shell (Homebrew, Python PATH, Obsidian)
 ├── .zshenv                 # Zsh env vars for all processes (PATH only)
 ├── .zshrc                  # Zsh interactive (oh-my-zsh + catppuccin + plugins)
 ├── bin/

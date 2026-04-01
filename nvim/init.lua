@@ -153,6 +153,14 @@ require("lazy").setup({
     event = "VeryLazy",
     config = true,
   },
+
+  -- Markdown preview in browser
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreview", "MarkdownPreviewStop", "MarkdownPreviewToggle" },
+    ft = { "markdown" },
+    build = "cd app && npx --yes yarn install",
+  },
 })
 
 -- ===========================================
@@ -186,3 +194,6 @@ map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move line up" })
 -- Better indenting (stay in visual mode)
 map("v", "<", "<gv")
 map("v", ">", ">gv")
+
+-- Markdown preview
+map("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>", { desc = "Markdown preview" })

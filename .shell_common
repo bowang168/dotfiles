@@ -93,7 +93,7 @@ cdo() { cd "$HOME/d/obsi"; }
 cdd() { cd "$HOME/d/"; }
 
 if [[ "$OS_TYPE" == "Darwin" ]]; then
-    cdi() { cd "$HOME/Library/Mobile Documents/com~apple~CloudDocs"; }
+    cdc() { cd "$HOME/Library/Mobile Documents/com~apple~CloudDocs"; }
 
     # cd to the directory shown in the frontmost Finder window
     cdf() {
