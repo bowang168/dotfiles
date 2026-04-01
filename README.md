@@ -20,7 +20,8 @@ dotfiles/
 │   ├── theme               # Dark/light theme switcher (GNOME)
 │   └── toggle_app          # Toggle/focus/launch app windows (X11)
 ├── docs/
-│   └── ol9-shortcuts.md    # OL9 keyboard shortcuts (keyd, GNOME, custom)
+│   ├── ol9-shortcuts.md    # OL9 keyboard shortcuts (keyd, GNOME, custom)
+│   └── gnome-terminal-profiles.dconf  # GNOME Terminal profiles export
 ├── nvim/
 │   ├── init.lua            # Neovim config (lazy.nvim + catppuccin + fzf + treesitter)
 │   └── lazy-lock.json      # Plugin version lock
@@ -28,7 +29,7 @@ dotfiles/
 │   └── catppuccin/
 │       ├── mocha.zsh       # Dark theme colors for zsh-syntax-highlighting
 │       └── latte.zsh       # Light theme colors for zsh-syntax-highlighting
-└── gnome-terminal-profiles.dconf
+└── LICENSE
 ```
 
 ## Key Features
@@ -107,7 +108,7 @@ cp ~/dotfiles/.bashrc_private.example ~/.bashrc_private
 chmod 600 ~/.bashrc_private
 
 # --- GNOME Terminal profiles (Linux only) ---
-dconf load /org/gnome/terminal/legacy/profiles:/ < ~/dotfiles/gnome-terminal-profiles.dconf
+dconf load /org/gnome/terminal/legacy/profiles:/ < ~/dotfiles/docs/gnome-terminal-profiles.dconf
 ```
 
 ### Zsh plugins
