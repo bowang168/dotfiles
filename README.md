@@ -15,6 +15,7 @@ dotfiles/
 ├── .shell_common           # Shared aliases and functions (bash + zsh, cross-platform)
 ├── .zshenv                 # Zsh env vars for all processes (PATH only)
 ├── .zshrc                  # Zsh interactive (oh-my-zsh + catppuccin + plugins)
+├── install.sh              # One-command setup (symlinks everything)
 ├── .gitignore
 ├── bin/
 │   ├── theme               # Dark/light theme switcher (GNOME)
@@ -76,48 +77,24 @@ See [docs/ol9-shortcuts.md](docs/ol9-shortcuts.md) for keyd configuration.
 ## Installation
 
 ```bash
-git clone https://github.com/bowang168/dotfiles.git ~/dotfiles
-
-# --- Shell config ---
-ln -sf ~/dotfiles/.bash_profile ~/.bash_profile
-ln -sf ~/dotfiles/.bashrc ~/.bashrc
-ln -sf ~/dotfiles/.shell_common ~/.shell_common
-ln -sf ~/dotfiles/.zshenv ~/.zshenv
-ln -sf ~/dotfiles/.zshrc ~/.zshrc
-
-# --- Scripts ---
-mkdir -p ~/.local/bin
-ln -sf ~/dotfiles/bin/theme ~/.local/bin/theme
-ln -sf ~/dotfiles/bin/toggle_app ~/.local/bin/toggle_app
-
-# --- Catppuccin zsh colors ---
-mkdir -p ~/.zsh/catppuccin
-ln -sf ~/dotfiles/zsh/catppuccin/mocha.zsh ~/.zsh/catppuccin/mocha.zsh
-ln -sf ~/dotfiles/zsh/catppuccin/latte.zsh ~/.zsh/catppuccin/latte.zsh
-
-# --- Neovim ---
-mkdir -p ~/.config/nvim
-ln -sf ~/dotfiles/nvim/init.lua ~/.config/nvim/init.lua
-ln -sf ~/dotfiles/nvim/lazy-lock.json ~/.config/nvim/lazy-lock.json
-
-# --- Theme (dark by default) ---
-echo "dark" > ~/.theme_mode
-
-# --- Secrets (copy template, fill in real values) ---
-cp ~/dotfiles/.bashrc_private.example ~/.bashrc_private
-chmod 600 ~/.bashrc_private
-
-# --- GNOME Terminal profiles (Linux only) ---
-dconf load /org/gnome/terminal/legacy/profiles:/ < ~/dotfiles/docs/gnome-terminal-profiles.dconf
+git clone https://github.com/bowang168/dotfiles.git ~/g/dotfiles
+cd ~/g/dotfiles && ./install.sh
 ```
 
-### Zsh plugins
+The install script:
+- Creates symlinks from `~` to the repo (single source of truth)
+- Backs up existing files to `~/.dotfiles_backup/` before overwriting
+- Copies `.bashrc_private.example` → `~/.bashrc_private` (secrets are never symlinked)
+- Loads GNOME Terminal profiles on Linux
+- Safe to run multiple times
+
+### Prerequisites
 
 ```bash
 # oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-# Third-party plugins
+# zsh plugins
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
     ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-autosuggestions.git \
