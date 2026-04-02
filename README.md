@@ -44,7 +44,9 @@ dotfiles/
 ├── .zprofile               # Zsh login shell (Homebrew, Python PATH, Obsidian)
 ├── .zshenv                 # Zsh env vars for all processes (PATH only)
 ├── .zshrc                  # Zsh interactive (oh-my-zsh + catppuccin + plugins)
+├── .gitconfig              # Git config (delta, SSH, merge settings)
 ├── .hushlogin              # Suppress "Last login" message in terminal
+├── starship.toml           # Starship cross-shell prompt config (nerd-font-symbols)
 ├── bin/
 │   ├── theme               # Dark/light theme switcher (macOS + GNOME)
 │   └── toggle_app          # Toggle/focus/launch app windows (Linux / X11)
@@ -112,6 +114,7 @@ See [docs/ol9-shortcuts.md](docs/ol9-shortcuts.md) for keyd and shortcut configu
 | [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) | Fish-like autosuggestions | All |
 | [eza](https://github.com/eza-community/eza) | Modern `ls` replacement | All (optional) |
 | [zoxide](https://github.com/ajeetdsouza/zoxide) | Smart `cd` replacement | All (optional) |
+| [starship](https://starship.rs/) | Cross-shell prompt | All |
 | [bat](https://github.com/sharkdp/bat) | `cat` with syntax highlighting | macOS (optional) |
 | [xdotool](https://github.com/jordansissel/xdotool) | Window manipulation | Linux |
 | [wmctrl](https://sites.google.com/site/aborber/wmctrl) | Window manager control | Linux |

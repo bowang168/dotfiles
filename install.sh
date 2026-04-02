@@ -42,11 +42,16 @@ link "$DOTFILES_DIR/.zprofile"      "$HOME/.zprofile"
 link "$DOTFILES_DIR/.zshenv"        "$HOME/.zshenv"
 link "$DOTFILES_DIR/.zshrc"         "$HOME/.zshrc"
 link "$DOTFILES_DIR/.hushlogin"     "$HOME/.hushlogin"
+link "$DOTFILES_DIR/.gitconfig"     "$HOME/.gitconfig"
 
 # --- Scripts ---
 echo "Scripts:"
 link "$DOTFILES_DIR/bin/theme"      "$HOME/.local/bin/theme"
 link "$DOTFILES_DIR/bin/toggle_app" "$HOME/.local/bin/toggle_app"
+
+# --- Starship prompt ---
+echo "Starship:"
+link "$DOTFILES_DIR/starship.toml"  "$HOME/.config/starship.toml"
 
 # --- Catppuccin zsh colors ---
 echo "Zsh themes:"
