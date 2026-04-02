@@ -41,6 +41,7 @@ link "$DOTFILES_DIR/.shell_common"  "$HOME/.shell_common"
 link "$DOTFILES_DIR/.zprofile"      "$HOME/.zprofile"
 link "$DOTFILES_DIR/.zshenv"        "$HOME/.zshenv"
 link "$DOTFILES_DIR/.zshrc"         "$HOME/.zshrc"
+link "$DOTFILES_DIR/.hushlogin"     "$HOME/.hushlogin"
 
 # --- Scripts ---
 echo "Scripts:"

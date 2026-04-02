@@ -44,6 +44,7 @@ dotfiles/
 ├── .zprofile               # Zsh login shell (Homebrew, Python PATH, Obsidian)
 ├── .zshenv                 # Zsh env vars for all processes (PATH only)
 ├── .zshrc                  # Zsh interactive (oh-my-zsh + catppuccin + plugins)
+├── .hushlogin              # Suppress "Last login" message in terminal
 ├── bin/
 │   ├── theme               # Dark/light theme switcher (macOS + GNOME)
 │   └── toggle_app          # Toggle/focus/launch app windows (Linux / X11)
