@@ -45,5 +45,8 @@ if [[ "$(uname)" == "Darwin" ]]; then
 fi
 export OLLAMA_ORIGINS="app://obsidian.md*"
 
+# --- Default working directory ---
+[[ "$PWD" == "$HOME" ]] && cd ~/dev
+
 # --- Starship prompt (must be at end) ---
 eval "$(starship init zsh)"
