@@ -186,23 +186,3 @@ fileurl() {
     echo "file://$(python3 -c "import urllib.parse; print(urllib.parse.quote('$(realpath "$1")'))")"
 }
 
-# ----------------------------------------------------------------------------
-# Work environment (ISDE / CMOS)
-# ----------------------------------------------------------------------------
-
-cff() {
-    if command -v REDACTED_AGENT &>/dev/null; then
-        REDACTED_AGENT -x SR "$1" && cd /REDACTED_PATH/isde/SR/"$1"/
-    elif command -v REDACTED_CLIENT &>/dev/null; then
-        REDACTED_CLIENT access sr "$1" && cd /REDACTED_PATH/isde/sr/"$1"/
-    else
-        echo "Error: neither REDACTED_AGENT nor REDACTED_CLIENT found" >&2
-        return 1
-    fi
-}
-
-# Conditional PATH — only on work servers
-[[ -d /REDACTED_PATH/bin ]] \
-    && export PATH="$PATH:/REDACTED_PATH/bin"
-[[ -d /REDACTED_PATH/isde_tools/DevWorkspace/REDACTED_TOOLS/Linux_tools/bin ]] \
-    && export PATH="$PATH:/REDACTED_PATH/isde_tools/DevWorkspace/REDACTED_TOOLS/Linux_tools/bin"

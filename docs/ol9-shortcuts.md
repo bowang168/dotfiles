@@ -42,7 +42,7 @@ After editing `/etc/keyd/default.conf`, reload with `sudo keyd reload`.
 | `Ctrl+Alt+Delete` | Logout |
 | `Shift+Alt+Super+l` | Lock screen |
 
-## Custom Shortcuts (toggle_app + quick-open)
+## Custom Shortcuts (toggle_app)
 
 | Shortcut | Command | Description |
 |----------|---------|-------------|
@@ -50,10 +50,10 @@ After editing `/etc/keyd/default.conf`, reload with `sudo keyd reload`.
 | `Super+g` | `toggle_app google-chrome` | Toggle Chrome |
 | `Super+Shift+f` | `toggle_app firefox` | Toggle Firefox |
 | `Super+b` | `toggle_app gedit` | Toggle gedit |
-| `Super+j` | `quick-open` | Oracle Quick Open |
-| `Super+u` | `quick-open --no-open` | quick-open without opening |
-| `Super+y` | `quick-open --one-value` | quick-open single value |
-| `Super+o` | `quick-open --raw-capture` | quick-open raw capture |
+| `Super+j` | `[custom tool]` | Quick open |
+| `Super+u` | `[custom tool] --no-open` | Quick open without opening |
+| `Super+y` | `[custom tool] --one-value` | Quick open single value |
+| `Super+o` | `[custom tool] --raw-capture` | Quick open raw capture |
 
 ## Volume
 
